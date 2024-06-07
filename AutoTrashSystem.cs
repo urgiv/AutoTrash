@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -23,7 +24,7 @@ namespace AutoTrash
 				layers.Insert(inventoryLayerIndex + 2, new LegacyGameInterfaceLayer(
 					"AutoTrash: Auto Trash Cursor",
 					delegate {
-						if (Main.cursorOverride == 6 && (Main.keyState.IsKeyDown(Keys.LeftControl) || Main.keyState.IsKeyDown(Keys.RightControl))) {
+						if (Main.cursorOverride == 6 && (Main.keyState.IsKeyDown(Keys.LeftControl) || Main.keyState.IsKeyDown(Keys.RightControl)) && Main.keyState.PressingShift()) {
 							var autoTrashPlayer = Main.LocalPlayer.GetModPlayer<AutoTrashPlayer>();
 							if (autoTrashPlayer.AutoTrashEnabled)
 								Main.cursorOverride = 5;
@@ -40,13 +41,19 @@ namespace AutoTrash
 					"AutoTrash: Auto Trash List",
 					delegate {
 						if (AutoTrashListUI.visible) {
-							AutoTrash.autoTrashUserInterface.Update(Main._drawInterfaceGameTime);
-							ModContent.GetInstance<AutoTrash>().autoTrashListUI.Draw(Main.spriteBatch);
+
+							AutoTrash.autoTrashUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
 						return true;
 					},
 					InterfaceScaleType.UI)
 				);
+			}
+		}
+
+		public override void UpdateUI(GameTime gameTime) {
+			if (AutoTrashListUI.visible) {
+				AutoTrash.autoTrashUserInterface.Update(gameTime);
 			}
 		}
 	}

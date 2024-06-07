@@ -24,8 +24,8 @@ namespace AutoTrash
 
 			mainPanel = new UIPanel();
 			mainPanel.SetPadding(0);
-			mainPanel.Left.Set(300f, 0f);
-			mainPanel.Top.Set(300f, 0f);
+			mainPanel.Left.Set(250f, 0f);
+			mainPanel.Top.Set(310f, 0f);
 			mainPanel.Width.Set(200f, 0f);
 			mainPanel.Height.Set(300f + checkboxesHeight, 0f);
 			mainPanel.BackgroundColor = new Color(73, 94, 171);
